@@ -3,13 +3,17 @@ import {firebase_app} from "@/config/firebase/utils";
 
 
 import {getAuth, signOut} from "firebase/auth";
-import router from 'next/router';
+import { useRouter } from "next/navigation";
 
 const auth = getAuth(firebase_app);
 
 
+
 let email: string | null | undefined = null;
 export default function Home() {
+
+    const router = useRouter()
+
     signOut(auth).then(() => {
         // Sign-out successful.
         return router.push("/");

@@ -18,8 +18,11 @@ const auth = getAuth(firebase_app);
 async function getCookMeals(userID: string): Promise<Meal[]> {
     const withUserID = query(collection(db, "Cook"), where("userID", "==", userID));
 
-
-    const cook: DocumentReference[] = (await getDocs(withUserID)).docs[0].data().events;
+    const docs = (await getDocs(withUserID)).docs;
+    if(docs.length == 0){
+        return [] as Meal[];
+    }
+    const cook: DocumentReference[] = docs[0].data().events;
 
     return Promise.all(cook.map(async (meal) =>
             getDoc(meal).then((doc) => {
@@ -62,6 +65,11 @@ export default function upcomingMeals() {
     //     redirect("/sign-in");
 
     // }
+    const getFromDataBaseMeals = async () =>{
+        let retreavedMeals:  Meal[] = await getCookMeals(auth.currentUser?.uid as string)
+        loadMeals(retreavedMeals);
+
+    }
 
     const loadMeals = async (mealsToLoad: Meal[]) => {
 
@@ -101,15 +109,16 @@ export default function upcomingMeals() {
         if (auth.currentUser?.uid == undefined) {
             return;
         }
-        // let retreavedMeals:  Meal[] = getCookMeals(auth.currentUser?.uid as string)
-        // loadMeals(retreavedMeals);
+        getFromDataBaseMeals();
+        
     });
+
 
 
     return (
         <div className="text-black m-auto w-5/6 max-w-prose">
 
-            <PageTitle>Upcoming Meals</PageTitle>
+            <PageTitle>Upcomming Meals</PageTitle>
             {displayOfUpMeals}
             <div className="w-full text-center m4">
                 <Link href="/new-meal"

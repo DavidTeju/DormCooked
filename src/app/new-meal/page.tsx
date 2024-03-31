@@ -8,7 +8,7 @@ import { MultiSelect } from "react-multi-select-component";
 import { v4 as uuid } from 'uuid'
 import {getAuth} from "firebase/auth";
 import {db, firebase_app} from "@/config/firebase/utils";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {arrayUnion, collection, FieldValue, updateDoc} from "firebase/firestore";
 import {addDoc} from "@firebase/firestore";
 
@@ -30,6 +30,8 @@ const auth = getAuth(firebase_app);
 
 
 function newMeal() {
+    const router = useRouter()
+
   const [foodName, setFoodName] = React.useState<string>("");
   const [ingredients, setIngredients] = React.useState<string[]>([]);
   const [location, setLocation] = React.useState<string>("");
@@ -53,7 +55,8 @@ function newMeal() {
 
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
-    if(startTime ==""||endTime==""||auth.currentUser?.uid === undefined || foodName == "" || ingredients.length == 0 || userDate.toString == (new Date(0)).toString || location == ""){
+    alert(userDate.getUTCDate())
+    if(startTime ==""||endTime==""||auth.currentUser?.uid === undefined || foodName == "" || ingredients.length == 0 ||  location == ""){
         alert("missing some fields");
     }
     const newUuid = uuid();
@@ -83,7 +86,7 @@ function newMeal() {
 
     storeNewMeal(auth.currentUser?.uid as string, meal);
 
-    redirect("/");
+    router.push('/upcomming-meals');
 
   };
 
@@ -95,7 +98,7 @@ function newMeal() {
 ];
   return (
     <div className="text-black m-auto w-5/6 max-w-prose">
-      <PageTitle>Upcoming Meals</PageTitle>
+      <PageTitle>Post a new meal</PageTitle>
       <form onSubmit={handleForm} className="form flex gap-6  flex-col">
         <InputLabel htmlFor="foodName" className=" gap-2  flex-col ">
           <div className="flex">
@@ -138,7 +141,7 @@ function newMeal() {
         </InputLabel>
         <InputLabel htmlFor="mealDescription" className=" gap-2  flex-col ">
           <div className="flex">
-            <p className="">Description</p>
+            <p className="">Description and Price</p>
             <input
               onChange={(e) => setDescription(e.target.value)}
 
