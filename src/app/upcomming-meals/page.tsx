@@ -7,6 +7,8 @@ import { faSquarePlus, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faBasketShopping, faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAuth } from "firebase/auth";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
@@ -43,6 +45,13 @@ export default function upcomingMeals() {
     //     period: [(new Date('March 13, 08 00:20')), (new Date('March 13, 08 03:20'))],
     //     location: "string",
     // }]
+
+
+    // const handleButtonClick = () => {
+    //     alert("ASDfasdfasdfa")
+    //     redirect("/sign-in");
+
+    // }
 
     const loadMeals = async (mealsToLoad: Meal[]) => {
         
@@ -82,8 +91,8 @@ export default function upcomingMeals() {
         if(auth.currentUser?.uid == undefined){
             return;
         }
-        let retreavedMeals:  Meal[] = getCookMeals(auth.currentUser?.uid as string)
-        loadMeals(retreavedMeals);
+        // let retreavedMeals:  Meal[] = getCookMeals(auth.currentUser?.uid as string)
+        // loadMeals(retreavedMeals);
      });
     
 
@@ -92,9 +101,13 @@ export default function upcomingMeals() {
             
             <PageTitle>Upcoming Meals</PageTitle>
             {displayOfUpMeals}
-            <div className="mt-4 text-xl text-center"		>
-                <FontAwesomeIcon icon={faSquarePlus} /> <span>Create New</span>
+            <div className="w-full text-center m4">
+            <Link href="/new-meal" className="mt-4 text-xl text-center hover:bg-sky-200 p-2 rounded-md	"><FontAwesomeIcon icon={faSquarePlus} /> <span>Create New</span></Link>
+
             </div>
+            {/* <div onClick={() => handleButtonClick()} className="mt-4 text-xl text-center hover:bg-sky-200 p-2 rounded-md	" >
+                <FontAwesomeIcon icon={faSquarePlus} /> <span>Create New</span>
+            </div> */}
         </div>
     )
 }

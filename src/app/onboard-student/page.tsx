@@ -65,7 +65,7 @@ export default function Home() {
     let prevList: Array<Day> = selectedTimes;
     let newDay: Day = {
       daysOfWeek: simpleDay,
-      Period: [startTime as Date, endTime as Date],
+      period: [startTime as Date, endTime as Date],
     };
     let newArrOfTime = [...prevList, newDay];
     setSelectedTimes(newArrOfTime);
@@ -74,8 +74,8 @@ export default function Home() {
       <li>
         {day.daysOfWeek}
         <p>
-          {day.Period[0].getHours() + ":" + day.Period[0].getMinutes()}-
-          {day.Period[1].getHours() + ":" + day.Period[1].getMinutes()}
+          {day.period[0].getHours() + ":" + day.period[0].getMinutes()}-
+          {day.period[1].getHours() + ":" + day.period[1].getMinutes()}
         </p>
       </li>
     ));
