@@ -9,12 +9,15 @@ import { v4 as uuid } from 'uuid'
 import {getAuth} from "firebase/auth";
 import {db, firebase_app} from "@/config/firebase/utils";
 import { redirect } from "next/navigation";
+import {arrayUnion, collection, FieldValue, updateDoc} from "firebase/firestore";
+import {addDoc} from "@firebase/firestore";
 
 
 
-// TODO
 function storeNewMeal(userID: string, meal: Meal){
-
+    addDoc(collection(db, "Meals"), meal).then((docRef) => {
+        updateDoc(docRef, {"events": arrayUnion(docRef)});
+    });
 }
 
 enum Allergies {
@@ -45,7 +48,7 @@ function newMeal() {
         return temp;
 
     };
-    
+
 
 
   const handleForm = async (event: React.FormEvent) => {
@@ -55,7 +58,7 @@ function newMeal() {
     }
     const newUuid = uuid();
     let today = userDate;
-    
+
     let dd = String(today.getDate()).padStart(2, "0");
     let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     let yyyy = today.getFullYear();
@@ -138,7 +141,7 @@ function newMeal() {
             <p className="">Description</p>
             <input
               onChange={(e) => setDescription(e.target.value)}
-              
+
               type="text"
               name="mealDescription"
               id="mealDescription"
@@ -201,7 +204,7 @@ function newMeal() {
                     Submit
                 </Button>
       </form>
-      
+
     </div>
   );
 }
