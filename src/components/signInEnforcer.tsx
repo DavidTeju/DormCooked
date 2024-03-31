@@ -1,6 +1,7 @@
 "use client";
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {usePathname} from 'next/navigation';
 import {useState} from "react";
 
 import router from "next/router";
@@ -12,6 +13,7 @@ const auth = getAuth(firebase_app);
 export default function SignInEnforcer({children,}: {
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
     const [loading, setLoading] = useState(true);
     const [validSignIn, setValidSignIn] = useState(false);
 
@@ -27,7 +29,11 @@ export default function SignInEnforcer({children,}: {
         if (validSignIn) {
             return children;
         } else {
+            if (pathname === "/sign-in") {
+                return children;
+            }
             router.push("/sign-in");
         }
     }
 }
+
