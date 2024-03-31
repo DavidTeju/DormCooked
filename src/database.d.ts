@@ -1,5 +1,5 @@
 export type Student = {
-    uuid: string;
+    userID: string;
     allergies: Allergies[];
     schedule: [Day, Day, Day, Day, Day, Day, Day];
 }
@@ -11,12 +11,11 @@ export type User = {
 }
 
 export type Cook = {
-    uuid: string;
+    userID: string;
     events: Meal[];
 }
 
 type Meal = {
-    uuid: string;
     name: string;
     description: string;
     ingredients: string[];
