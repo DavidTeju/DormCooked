@@ -1,6 +1,12 @@
 import {Allergy, Day, DaysofWeek, Meal, Student} from "@/database";
-import {collection, getDocsFromServer} from "firebase/firestore";
-import {db} from "@/config/firebase/utils";
+
+import {getFirestore} from 'firebase-admin/firestore';
+
+import {initializeApp} from "firebase-admin/app";
+
+initializeApp();
+
+const db = getFirestore();
 
 
 declare global {
@@ -17,7 +23,7 @@ Date.prototype.addHours = function (h) {
 
 // get all students who have a scheduled meal that begins within the defined range
 async function getAllStudentsForTime(timeStart: Date, timeEnd: Date): Promise<[Student, Day][]> {
-    const querySnapshot = await getDocsFromServer(collection(db, "Student"));
+    const querySnapshot = await db.collection("Student").get();
     let day: Day;
 
     return querySnapshot.docs.map(
@@ -39,7 +45,7 @@ async function getAllStudentsForTime(timeStart: Date, timeEnd: Date): Promise<[S
 
 //get all meals with at least 30 minutes of overlap with the defined range
 async function getAllMealsForTime(timeStart: Date, timeEnd: Date): Promise<Meal[]> {
-    const querySnapshot = await getDocsFromServer(collection(db, "Meal"));
+    const querySnapshot = await db.collection("Meal").get();
 
     return querySnapshot.docs.map(
         doc => doc.data() as Meal)
@@ -103,7 +109,13 @@ async function reprocessStudentForMeal(meal: Meal, student: Student) {
                 ).filter((each) => each !== meal);
             // redo the selection process without the current meal
             weightedSelect(mealsAtTime).students.push(student);
+
             meal.students = meal.students.filter((s) => s.userID !== student.userID);
+
+            const mealRef = db.collection("Meal").doc(meal.uuid);
+
+            mealRef.set(meal);
+
             return;
         }
     }
@@ -112,6 +124,9 @@ async function reprocessStudentForMeal(meal: Meal, student: Student) {
 async function process() {
     // get all students who have a scheduled meal for next processing batch
     const studentsToProcess = await getAllStudentsForTime(new Date().addHours(68), new Date().addHours(72));
+    const batch = db.batch();
+
+    let batchCapacityLeft = 500;
 
     for (const [student, scheduleDay] of studentsToProcess) {
         const mealsAtTime = (await getAllMealsForTime(
@@ -123,8 +138,19 @@ async function process() {
                 )
             );
 
-        weightedSelect(mealsAtTime).students.push(student);
+        const selectedMeals = weightedSelect(mealsAtTime);
+        selectedMeals.students.push(student);
+
+        batch.set(db.collection("Meal").doc(selectedMeals.uuid), selectedMeals);
+        batchCapacityLeft--;
+
+        if (!batchCapacityLeft) {
+            await batch.commit();
+            batchCapacityLeft = 500;
+        }
     }
+
+    await batch.commit();
 }
 
 function weightedSelect(arr: Meal[]): Meal {
