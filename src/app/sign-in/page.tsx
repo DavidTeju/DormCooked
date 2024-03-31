@@ -11,6 +11,7 @@ import {
 
 import {firebase_app} from "@/config/firebase/utils";
 import {Button, InputLabel, Switch} from '@mui/material'
+import { red } from '@mui/material/colors';
 
 const auth = getAuth(firebase_app);
 
@@ -63,24 +64,36 @@ const signIn = () => {
         <div className=" justify-center flex items-center">
 
             <form onSubmit={handleForm} className="form flex gap-6  flex-col">
-                <InputLabel  htmlFor="email" className=' gap-2 flex flex-col '>
-                    <p className=''>Email</p>
-                    <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email"
-                           placeholder="example@mail.com"/>
-                </InputLabel >
+            <InputLabel htmlFor="email">
+                <div  className="gap-2 flex items-center">
+                <img className="w-8" src="\assets\envelope-solid.svg" alt="Email icon" />
+                <input
+                    className="rounded-md shink drop-shadow-md border-solid border-2 border-sky-500"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="example@mail.com"
+                /></div>
+                </InputLabel>
                 <InputLabel  htmlFor="password">
-                    <p>Password</p>
-                    <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password"
-                           id="password" placeholder="password"/>
+                <div  className="gap-2 flex items-center">
+                    <img className="w-8" src = "\assets\lock-solid.svg" alt = "Password icon" />
+                    <input className='rounded-md drop-shadow-md border-solid border-2 border-sky-500' onChange={(e) => setPassword(e.target.value)} required type="password" name="password"
+                           id="password" placeholder="password"/></div>
                 </InputLabel >
                 <InputLabel  htmlFor="userType">
                     <span>
                     Student
-                    <Switch onClick={() => toggle()}></Switch>
+                    <Switch  onClick={() => toggle()}></Switch>
                     Cook
                     </span>
                 </InputLabel >
-                <Button type="submit" className=' text-start w-full'>Log In</Button>
+                <div className ="rounded-md drop-shadow-md border-solid">
+                <Button type="submit" className='bordered-button start w-full'>Log In</Button>
+                </div>
+                
             </form>
         </div>
 
