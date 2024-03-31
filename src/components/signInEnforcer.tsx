@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {usePathname} from 'next/navigation';
+import {redirect, usePathname} from 'next/navigation';
 import {useState} from "react";
 
 import router from "next/router";
@@ -24,7 +24,7 @@ export default function SignInEnforcer({children,}: {
     });
 
     if (loading) {
-        return <></>;
+        return <>loading</>;
     } else {
         if (validSignIn) {
             return children;
@@ -32,7 +32,7 @@ export default function SignInEnforcer({children,}: {
             if (pathname === "/sign-in") {
                 return children;
             }
-            router.push("/sign-in");
+            redirect("/sign-in");
         }
     }
 }

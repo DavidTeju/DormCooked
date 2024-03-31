@@ -32,5 +32,5 @@ export const firebase_app = getApps().length === 0 ? initializeApp(firebaseConfi
 export const db = getFirestore(firebase_app);
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const auth = getAuth(firebase_app).setPersistence(browserLocalPersistence);

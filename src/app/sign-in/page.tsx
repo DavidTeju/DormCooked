@@ -14,7 +14,7 @@ import {Button, InputLabel, Switch} from '@mui/material'
 
 const auth = getAuth(firebase_app);
 
-const Login = () => {
+const signIn = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [userType, setUserType] = React.useState(false)
@@ -22,7 +22,6 @@ const Login = () => {
     const toggle = () => {
 
         setUserType(!userType);
-        alert(userType)
     }
     const router = useRouter()
 
@@ -30,7 +29,6 @@ const Login = () => {
         event.preventDefault()
         let emailAuths = await fetchSignInMethodsForEmail(auth, email);
         if (emailAuths.length > 0) {
-
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // const {user} = userCredential;
@@ -90,4 +88,4 @@ const Login = () => {
 }
 
 
-export default Login
+export default signIn
