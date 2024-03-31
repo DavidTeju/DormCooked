@@ -118,7 +118,7 @@ export default function upcomingMeals() {
     return (
         <div className="text-black m-auto w-5/6 max-w-prose">
 
-            <PageTitle>Upcomming Meals</PageTitle>
+            <PageTitle>Upcoming Meals</PageTitle>
             {displayOfUpMeals}
             <div className="w-full text-center m4">
                 <Link href="/new-meal"

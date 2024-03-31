@@ -90,7 +90,7 @@ function newMeal() {
 
     storeNewMeal(auth.currentUser?.uid as string, meal);
 
-    router.push("/upcomming-meals");
+    router.push("/upcoming-meals");
   };
 
   const options = [

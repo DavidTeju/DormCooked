@@ -28,7 +28,7 @@ export default function Home() {
 
             await storeCookExistence(auth.currentUser?.uid as string);
         }
-        return router.push('/upcomming-meals')
+        return router.push('/upcoming-meals')
     }
     // runs on page load 1 time
     useEffect(() => {
