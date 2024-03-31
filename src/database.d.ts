@@ -1,17 +1,17 @@
-export type Student = {
+type Student = {
     userID: string;
     // reference to allergen
     allergies: Allergy[];
     schedule: Day[];
 }
 
-export type User = {
+type User = {
     uuid: string;
     username: string;
     emailAddress: string;
 }
 
-export type Cook = {
+type Cook = {
     userID: string;
     // reference to meal
     events: Meal[];
@@ -42,4 +42,4 @@ export enum Allergy {
     soy,
 }
 
-export type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';

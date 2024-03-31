@@ -2,7 +2,7 @@
 
 import PageTitle from "@/components/pageTitle";
 import {db, firebase_app} from "@/config/firebase/utils";
-import {Day, DaysofWeek} from "@/database";
+import {Allergy, Day, DaysofWeek} from "@/database";
 import {useRouter} from "next/navigation";
 // import { Allergies } from "@/database";
 import {Button, FormControl, InputLabel, MenuItem, Select,} from "@mui/material";
@@ -17,14 +17,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const auth = getAuth(firebase_app);
 
-enum Allergies {
-    gluten,
-    dairy,
-    nuts,
-    soy,
-}
 
-function storeStudentPreferences(userID: string, allergies: Allergies[], schedule: Day[]) {
+
+function storeStudentPreferences(userID: string, allergies: Allergy[], schedule: Day[]) {
     const withUserID = query(collection(db, "Student"), where("userID", "==", userID));
     getDocs(withUserID).then((snap) => {
         snap.forEach((doc) => {
@@ -109,10 +104,10 @@ export default function Home() {
         ))}</ul>);
     };
     const options = [
-        {label: "Gluten", value: Allergies.gluten},
-        {label: "Dairy", value: Allergies.dairy},
-        {label: "Nuts", value: Allergies.nuts},
-        {label: "Soy", value: Allergies.soy},
+        {label: "Gluten", value: Allergy.gluten},
+        {label: "Dairy", value: Allergy.dairy},
+        {label: "Nuts", value: Allergy.nuts},
+        {label: "Soy", value: Allergy.soy},
     ];
     return (
 
