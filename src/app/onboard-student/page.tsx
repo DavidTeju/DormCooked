@@ -58,7 +58,7 @@ export default function Home() {
 
 
   const addTime = async () => {
-    if (!simpleSelectValue) {
+    if (!simpleSelectValue || !startTime || !endTime) {
       return;
     }
     let simpleDay: DaysofWeek = simpleSelectValue as DaysofWeek;
@@ -67,9 +67,10 @@ export default function Home() {
       daysOfWeek: simpleDay,
       Period: [startTime as Date, endTime as Date],
     };
-    setSelectedTimes([...prevList, newDay]);
+    let newArrOfTime = [...prevList, newDay];
+    setSelectedTimes(newArrOfTime);
 
-    const listItems = selectedTimes.map((day) => (
+    const listItems = newArrOfTime.map((day) => (
       <li>
         {day.daysOfWeek}
         <p>
@@ -89,6 +90,8 @@ export default function Home() {
   ];
   return (
     <div className="text-black	">
+        {/* {simpleSelectValue}
+        {JSON.stringify(selectedTimes)} */}
       <PageTitle>Student Onboarding</PageTitle>
       {displayOfChoosenTimes}
 
