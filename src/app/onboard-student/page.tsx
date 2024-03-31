@@ -3,7 +3,13 @@ import PageTitle from "@/components/pageTitle";
 import {db, firebase_app} from "@/config/firebase/utils";
 import {Day, DaysofWeek} from "@/database";
 // import { Allergies } from "@/database";
-import {Button, FormControl, InputLabel, MenuItem, Select,} from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 import {getAuth} from "firebase/auth";
 import {useState} from "react";
