@@ -18,7 +18,7 @@ const auth = getAuth(firebase_app);
 async function getCookMeals(userID: string): Promise<Meal[]> {
     const withUserID = query(collection(db, "Cook"), where("userID", "==", userID));
 
-    const docs = (await getDocs(withUserID)).docs;
+    const {docs} = await getDocs(withUserID);
     if(docs.length == 0){
         return [] as Meal[];
     }
@@ -37,7 +37,7 @@ async function getCookMeals(userID: string): Promise<Meal[]> {
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 
-export default function upcomingMeals() {
+export default function UpcomingMeals() {
     const [upcomingMeals, setUpcomingMeals] = useState<Meal[]>();
     const [displayOfUpMeals, setDisplayOfUpMeals] =
         useState<React.ReactNode>();
@@ -110,7 +110,7 @@ export default function upcomingMeals() {
             return;
         }
         getFromDataBaseMeals();
-        
+
     });
 
 

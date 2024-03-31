@@ -14,7 +14,7 @@ import {addDoc} from "@firebase/firestore";
 
 
 function storeNewMeal(userID: string, meal: Meal) {
-  addDoc(collection(db, "Meals"), meal).then((docRef) => {
+  addDoc(collection(db, "Cook"), meal).then((docRef) => {
     updateDoc(docRef, { events: arrayUnion(docRef) });
   });
 }

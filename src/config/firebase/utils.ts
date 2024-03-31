@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 
 import {getFirestore} from "firebase/firestore";
 import {browserLocalPersistence, getAuth} from "firebase/auth";
@@ -17,17 +17,18 @@ export const MEASUREMENT_ID = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID;
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAl3k2Hrr-gJubrhOWcSNcixk0wPwRTUjw",
-       authDomain: "dorm-cooked-meals.firebaseapp.com",
-       projectId: "dorm-cooked-meals",
-       storageBucket: "dorm-cooked-meals.appspot.com",
-       messagingSenderId: "842791819381",
-       appId: "1:842791819381:web:9952b11fd9dcb05c6dc03c",
-       measurementId: "G-BRRVMNJHFX"
-     };
+  apiKey: "AIzaSyCF3KUlF4WQ5wmfqOZ5YVfR6v6goukheAs",
+  authDomain: "bisonbytes-d90c2.firebaseapp.com",
+  projectId: "bisonbytes-d90c2",
+  storageBucket: "bisonbytes-d90c2.appspot.com",
+  messagingSenderId: "943169287430",
+  appId: "1:943169287430:web:f2710d9302f7a133aeda87",
+  measurementId: "G-7PFJFE0DN1"
+};
 
 // Initialize Firebase
 export const firebase_app = initializeApp(firebaseConfig);
 export const db = getFirestore(firebase_app);
 // const analytics = getAnalytics(app);
-const auth = getAuth(firebase_app).setPersistence(browserLocalPersistence);
+export const auth = getAuth(firebase_app);
+auth.setPersistence(browserLocalPersistence);

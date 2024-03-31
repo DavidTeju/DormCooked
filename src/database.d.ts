@@ -1,23 +1,23 @@
-type Student = {
+export type Student = {
     userID: string;
     // reference to allergen
     allergies: Allergy[];
     schedule: Day[];
 }
 
-type User = {
+export type User = {
     uuid: string;
     username: string;
     emailAddress: string;
 }
 
-type Cook = {
+export type Cook = {
     userID: string;
     // reference to meal
     events: Meal[];
 }
 
-type Meal = {
+export type Meal = {
     uuid: string;
     name: string;
     description: string;
@@ -28,18 +28,19 @@ type Meal = {
     students: Student[];
     period: [Date, Date];
     location: string;
+    imageURL?: string;
 }
 
-type Day = {
+export type Day = {
     daysOfWeek: DaysofWeek;
     period: [Date, Date]; // [start, end]
 };
 
-export enum Allergy {
+enum Allergy {
     gluten,
     dairy,
     nuts,
     soy,
 }
 
-type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+export type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';

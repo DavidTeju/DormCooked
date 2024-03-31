@@ -6,9 +6,7 @@ import {useState} from "react";
 
 import router from "next/router";
 
-import {firebase_app} from "@/config/firebase/utils";
-
-const auth = getAuth(firebase_app);
+import {auth, firebase_app} from "@/config/firebase/utils";
 
 export default function SignInEnforcer({children,}: {
     children: React.ReactNode;
