@@ -8,7 +8,7 @@ import {faBasketShopping, faMapPin} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAuth} from "firebase/auth";
 import Link from "next/link";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {collection, DocumentReference, getDoc, getDocs} from "firebase/firestore";
 import {query, where} from "@firebase/firestore";
 
@@ -36,7 +36,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 
 export default function upcomingMeals() {
-    const [upcommingMeals, setUpcommingMeals] = useState<Meal[]>();
+    const [upcomingMeals, setUpcomingMeals] = useState<Meal[]>();
     const [displayOfUpMeals, setDisplayOfUpMeals] =
         useState<React.ReactNode>();
     // const mealsToLoad: Meal[]= [{
@@ -71,7 +71,7 @@ export default function upcomingMeals() {
                 {monthNames[meal.period[0].getMonth()] + " " + meal.period[0].getDate()} {" "}
                 from {meal.period[0].getHours() + ":" + meal.period[0].getMinutes()} {" "}
                 to {meal.period[1].getHours() + ":" + meal.period[1].getMinutes()}
-                <div className="flex mt-4 text-center mt-2">
+                <div className="flex mt-4 text-center">
                     <div className=" grow flex flex-col">
 
                         <FontAwesomeIcon className="h-12" icon={faUser}/>
