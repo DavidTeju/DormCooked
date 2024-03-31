@@ -1,7 +1,7 @@
 export type Student = {
     userID: string;
     allergies: Allergies[];
-    schedule: [Day, Day, Day, Day, Day, Day, Day];
+    schedule: Day[];
 }
 
 export type User = {
@@ -28,7 +28,7 @@ type Meal = {
 type Day = {
     daysOfWeek: DaysofWeek;
     Period: [Date, Date]; // [start, end]
-}[];
+};
 
 export enum Allergies {
     gluten,
