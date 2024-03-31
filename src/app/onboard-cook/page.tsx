@@ -24,8 +24,7 @@ export default function Home() {
 
     const router = useRouter();
     async function storeRunner(){
-        if (auth.currentUser?.uid != undefined) {
-
+        if (auth.currentUser?.uid) {
             await storeCookExistence(auth.currentUser?.uid as string);
         }
         return router.push('/upcoming-meals')
@@ -39,20 +38,20 @@ export default function Home() {
         if (!('hasCookCodeRunBefore' in localStorage)){
             localStorage.setItem('hasCookCodeRunBefore',"yep");
             storeRunner()
-            
+
 
         }
 
 
     });
-    
+
     return (
         <div>
             <div className="flex gap-4">
                 <p>Setting Everything Up </p>
             <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
             </div>
-            
+
         </div>
     )
 

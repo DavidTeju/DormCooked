@@ -2,20 +2,16 @@
 
 import PageTitle from "@/components/pageTitle";
 import { Meal } from "@/database";
-import { Button, FormControl, InputLabel } from "@mui/material";
+import { Button, InputLabel } from "@mui/material";
 import React from "react";
 import { MultiSelect } from "react-multi-select-component";
-import { v4 as uuid } from "uuid";
-import { getAuth } from "firebase/auth";
-import { db, firebase_app } from "@/config/firebase/utils";
-import { redirect, useRouter } from "next/navigation";
-import {
-  arrayUnion,
-  collection,
-  FieldValue,
-  updateDoc,
-} from "firebase/firestore";
-import { addDoc } from "@firebase/firestore";
+import { v4 as uuid } from 'uuid'
+import {getAuth} from "firebase/auth";
+import {db, firebase_app} from "@/config/firebase/utils";
+import { useRouter } from "next/navigation";
+import {arrayUnion, collection, updateDoc} from "firebase/firestore";
+import {addDoc} from "@firebase/firestore";
+
 
 function storeNewMeal(userID: string, meal: Meal) {
   addDoc(collection(db, "Meals"), meal).then((docRef) => {
@@ -24,10 +20,10 @@ function storeNewMeal(userID: string, meal: Meal) {
 }
 
 enum Allergies {
-  gluten,
-  dairy,
-  nuts,
-  soy,
+    gluten,
+    dairy,
+    nuts,
+    soy,
 }
 const auth = getAuth(firebase_app);
 
@@ -54,16 +50,14 @@ function newMeal() {
 
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
-    alert(userDate.getUTCDate());
-    if (
-      startTime == "" ||
-      endTime == "" ||
-      auth.currentUser?.uid === undefined ||
-      foodName == "" ||
-      ingredients.length == 0 ||
-      location == ""
-    ) {
-      alert("missing some fields");
+    if(!startTime
+        ||!endTime
+        ||!auth.currentUser?.uid
+        || !foodName
+        || !ingredients.length
+        || userDate.toString() === (new Date(0)).toString()
+        || !location) {
+        alert("missing some fields");
     }
     const newUuid = uuid();
     let today = userDate;
@@ -94,16 +88,16 @@ function newMeal() {
   };
 
   const options = [
-    { label: "Gluten", value: Allergies.gluten },
-    { label: "Dairy", value: Allergies.dairy },
-    { label: "Nuts", value: Allergies.nuts },
-    { label: "Soy", value: Allergies.soy },
-  ];
+    {label: "Gluten", value: Allergies.gluten},
+    {label: "Dairy", value: Allergies.dairy},
+    {label: "Nuts", value: Allergies.nuts},
+    {label: "Soy", value: Allergies.soy},
+];
   return (
     <div className="m-auto text-black w-5/6 max-w-prose">
       <PageTitle>Post a new meal</PageTitle>
       <form onSubmit={handleForm} className="mt-6 form flex gap-6  flex-col">
-        <InputLabel htmlFor="foodName" className=" gap-2  flex-col ">
+          <InputLabel htmlFor="foodName" className=" gap-2  flex-col ">
           <div className="flex items-center place-content-between">
             <p className="text-black ">Food Name</p>
             <input
