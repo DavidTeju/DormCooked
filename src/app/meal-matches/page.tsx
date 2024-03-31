@@ -95,7 +95,6 @@ export default function upcomingMeals() {
 
     };
 
-    // runs on page load 1 time
     useEffect(() => {
         // call api or anything
         if (auth.currentUser?.uid == undefined) {
@@ -103,7 +102,7 @@ export default function upcomingMeals() {
         }
         // let retreavedMeals:  Meal[] = getCookMeals(auth.currentUser?.uid as string)
         // loadMeals(retreavedMeals);
-    });
+    },[true]);
 
 
     return (

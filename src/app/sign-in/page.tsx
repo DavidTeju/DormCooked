@@ -8,8 +8,9 @@ import {
     getAuth,
     signInWithEmailAndPassword
 } from "firebase/auth";
-
 import {firebase_app} from "@/config/firebase/utils";
+
+
 import {Button, InputLabel, Switch} from '@mui/material'
 import { red } from '@mui/material/colors';
 
@@ -20,7 +21,10 @@ const signIn = () => {
     const [password, setPassword] = React.useState('')
     const [userType, setUserType] = React.useState(false)
 
-    const toggle = () => {
+    const toggle = async () => {
+
+
+
 
         setUserType(!userType);
     }
@@ -43,6 +47,7 @@ const signIn = () => {
         } else {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
+                    localStorage.clear();
                     // Signed up
                     // const user = userCredential.user;
                     // need to take to relevent onboarding page

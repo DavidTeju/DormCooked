@@ -1,7 +1,7 @@
 "use client";
 import {getAuth} from "firebase/auth";
 import {addDoc} from "@firebase/firestore";
-import {redirect, useRouter} from "next/navigation";
+import { useRouter} from "next/navigation";
 import {collection} from "firebase/firestore";
 import {db, firebase_app} from "@/config/firebase/utils";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -11,11 +11,12 @@ import { useEffect } from "react";
 const auth = getAuth(firebase_app);
 
 async function storeCookExistence(userID: string) {
+    console.log(userID)
     const docRef = await addDoc(collection(db, "Cook"), {
         user: userID,
         events: [],
     });
-    alert(docRef)
+    console.log(docRef)
 }
 
 export default function Home() {
@@ -26,10 +27,8 @@ export default function Home() {
         if (auth.currentUser?.uid != undefined) {
 
             await storeCookExistence(auth.currentUser?.uid as string);
-        }else{
-            alert("Asdfasdfasdfasdfasdf")
         }
-        router.push('/upcomming-meals')
+        return router.push('/upcomming-meals')
     }
     // runs on page load 1 time
     useEffect(() => {
@@ -37,7 +36,13 @@ export default function Home() {
         if (auth.currentUser?.uid == undefined) {
             return;
         }
-        storeRunner()
+        if (!('hasCookCodeRunBefore' in localStorage)){
+            localStorage.setItem('hasCookCodeRunBefore',"yep");
+            storeRunner()
+            
+
+        }
+
 
     });
     
