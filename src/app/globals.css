@@ -15,6 +15,16 @@ body {
   background-color: rgb(var(--background-start-rgb));
 
 }
+/* The animation code */
+@keyframes growHeight {
+  from {max-height: 0px;}
+  to {max-height: 200px;}
+}
+.expanding {
+  animation-name: growHeight;
+  animation-duration: 2s;
+
+}
 
 @layer utilities {
   .text-balance {

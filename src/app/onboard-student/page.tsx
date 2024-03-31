@@ -17,6 +17,8 @@ import {MultiSelect} from "react-multi-select-component";
 import {getDocs, query, setDoc, where} from "@firebase/firestore";
 import {redirect} from "next/navigation";
 import {collection} from "firebase/firestore";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const auth = getAuth(firebase_app);
 
@@ -94,16 +96,18 @@ export default function Home() {
         setSelectedTimes(newArrOfTime);
 
         const listItems = newArrOfTime.map((day) => (
-            <li>
-                {day.daysOfWeek}
+            <li className="mt-2  flex items-center grow bg-gray-300 duration-700 expanding truncate">
+                <FontAwesomeIcon className="w-16" icon={faCalendar} />
+                <div className="mr-4 my-2">{day.daysOfWeek}</div>
                 <p>
                     {day.period[0].getHours() + ":" + day.period[0].getMinutes()}-
                     {day.period[1].getHours() + ":" + day.period[1].getMinutes()}
                 </p>
+                
             </li>
         ));
 
-        setDisplayOfChoosenTimes(<ul>{listItems}</ul>);
+        setDisplayOfChoosenTimes(<ul className="flex flex-col">{listItems}</ul>);
     };
     const options = [
         {label: "Gluten", value: Allergies.gluten},
@@ -121,7 +125,7 @@ export default function Home() {
             {displayOfChoosenTimes}
 
             <form onSubmit={handleForm} className=" mt-5 form flex gap-6  flex-col">
-                <p className="text-center">Select Eating Schedule </p>
+                <p className="text-center">What days and times are you interested in finding Dorm Cooked Meals</p>
                 <div className=" items-center flex">
                 <div className="w-1/2 ">
                 <FormControl fullWidth>
