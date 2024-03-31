@@ -48,11 +48,15 @@ export default function Home() {
     let todayString = mm + "/" + dd + "/" + yyyy;
     return new Date(todayString + " " + temp /*pass your time*/);
   };
+
   // TODO
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     // need to submit the selectedTimes Day
+    // need to submit the selectedAllergies
   };
+
+
   const addTime = async () => {
     if (!simpleSelectValue) {
       return;
