@@ -25,6 +25,9 @@ body {
   animation-duration: 2s;
 
 }
+.textFormBg {
+  background-color: rgb(235, 234, 228);
+}
 
 @layer utilities {
   .text-balance {
