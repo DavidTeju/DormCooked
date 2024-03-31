@@ -1,6 +1,5 @@
 "use client"
-import {Button} from '@/components/ui/button'
-import {Label} from '@/components/ui/label'
+
 import {useRouter} from 'next/navigation'
 import React from 'react'
 import {
@@ -11,7 +10,7 @@ import {
 } from "firebase/auth";
 
 import {firebase_app} from "@/config/firebase/utils";
-import {Switch} from '@mui/material'
+import {Button, InputLabel, Switch} from '@mui/material'
 
 const auth = getAuth(firebase_app);
 
@@ -66,23 +65,23 @@ const Login = () => {
         <div className=" justify-center flex items-center">
 
             <form onSubmit={handleForm} className="form flex gap-6  flex-col">
-                <Label htmlFor="email" className=' gap-2 flex flex-col '>
+                <InputLabel  htmlFor="email" className=' gap-2 flex flex-col '>
                     <p className=''>Email</p>
                     <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email"
                            placeholder="example@mail.com"/>
-                </Label>
-                <Label htmlFor="password">
+                </InputLabel >
+                <InputLabel  htmlFor="password">
                     <p>Password</p>
                     <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password"
                            id="password" placeholder="password"/>
-                </Label>
-                <Label htmlFor="userType">
+                </InputLabel >
+                <InputLabel  htmlFor="userType">
                     <span>
                     Student
                     <Switch onClick={() => toggle()}></Switch>
                     Cook
                     </span>
-                </Label>
+                </InputLabel >
                 <Button type="submit" className=' text-start w-full'>Log In</Button>
             </form>
         </div>
