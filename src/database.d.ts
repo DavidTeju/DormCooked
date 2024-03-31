@@ -1,6 +1,6 @@
 export type Student = {
     userID: string;
-    allergies: Allergies[];
+    allergies: Allergy[];
     schedule: Day[];
 }
 
@@ -19,7 +19,7 @@ type Meal = {
     name: string;
     description: string;
     ingredients: string[];
-    allergens: Allergies[];
+    allergens: Allergy[];
     students: Student[];
     period: [Date, Date];
     location: string;
@@ -27,14 +27,14 @@ type Meal = {
 
 type Day = {
     daysOfWeek: DaysofWeek;
-    Period: [Date, Date]; // [start, end]
+    period: [Date, Date]; // [start, end]
 };
 
-export enum Allergies {
+export enum Allergy {
     gluten,
     dairy,
     nuts,
     soy,
 }
 
-type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+export type DaysofWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
