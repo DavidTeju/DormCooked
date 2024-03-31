@@ -20,7 +20,7 @@ export default function RootLayout({
     const SignInEnforcer = dynamic(() => import("@/components/signInEnforcer"))
   return (
     <html lang="en">
-      <body className={"h-screen bg-white bg-cover"}>
+      <body className={" text-black	h-screen  bg-cover"}>
         <SignInEnforcer> {children}</SignInEnforcer>
       </body>
     </html>
