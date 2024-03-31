@@ -33,9 +33,7 @@ const signIn = () => {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // const {user} = userCredential;
-
-
-                    return router.push("/")
+                    return router.push("/");
                 })
                 .catch((error) => {
                     return error
@@ -48,7 +46,13 @@ const signIn = () => {
                     // Signed up
                     // const user = userCredential.user;
                     // need to take to relevent onboarding page
-                    return router.push("/");
+                    if(!userType){
+                        return router.push("/onboard-student")
+                    }else{
+                        return router.push("/onboard-cook")
+
+                    }
+                    
                     // ...
                 })
                 // .catch((error) => {

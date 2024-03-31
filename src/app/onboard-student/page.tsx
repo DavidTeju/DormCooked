@@ -69,6 +69,7 @@ export default function Home() {
         event.preventDefault();
 
         if (!selectedTimes || !selectedAllergies || auth.currentUser?.uid === undefined) {
+            alert("Missing fields")
             return;
         }
 
@@ -111,14 +112,18 @@ export default function Home() {
         {label: "Soy", value: Allergies.soy},
     ];
     return (
-        <div className="text-black	">
+        
+        <div className="text-black  m-auto w-5/6 max-w-prose p-4">
+            {"hi "+auth.currentUser?.email}
             {/* {simpleSelectValue}
         {JSON.stringify(selectedTimes)} */}
             <PageTitle>Student Onboarding</PageTitle>
             {displayOfChoosenTimes}
 
-            <form onSubmit={handleForm} className="form flex gap-6  flex-col">
-                <p>Select Eating Schedule </p>
+            <form onSubmit={handleForm} className=" mt-5 form flex gap-6  flex-col">
+                <p className="text-center">Select Eating Schedule </p>
+                <div className=" items-center flex">
+                <div className="w-1/2 ">
                 <FormControl fullWidth>
                     <InputLabel id="simple-select-label">Day of the Week</InputLabel>
                     <Select
@@ -136,37 +141,49 @@ export default function Home() {
                         <MenuItem value={"Saturday"}>Saterday</MenuItem>
                     </Select>
                 </FormControl>
-                start
-                <input
-                    onChange={(e) => {
-                        // Create a new Date object from the time value
-                        setStartTime(convertMiliarty(e.target.value));
-                    }}
-                    aria-label="Time"
-                    type="time"
-                />
-                end
-                <input
-                    onChange={(e) => {
-                        setEndTime(convertMiliarty(e.target.value));
-                    }}
-                    aria-label="Time"
-                    type="time"
-                />
+                </div>
+                <div className=" w-min m-auto">
+                    <div className="flex gap-2">
+                    start
+                    <input
+                        onChange={(e) => {
+                            // Create a new Date object from the time value
+                            setStartTime(convertMiliarty(e.target.value));
+                        }}
+                        aria-label="Time"
+                        type="time"
+                    />
+                    
+                    </div>
+                    {"  -  "}
+                    <div className="flex gap-2">
+                    end
+                    <input
+                        onChange={(e) => {
+                            setEndTime(convertMiliarty(e.target.value));
+                        }}
+                        aria-label="Time"
+                        type="time"
+                    />
+                    </div>
+                </div>
+                </div>
                 <Button onClick={addTime}>+ add time</Button>
                 <div>
+                    <p>Select Allergies</p>
                     <MultiSelect
                         options={options}
                         value={selectedAllergies}
                         onChange={setSelectedAllergies}
-                        labelledBy="Select"
+                        labelledBy="Select Allergies"
+                        
                     />
                 </div>
                 <Button type="submit" className=" text-start w-full">
                     Submit
                 </Button>
             </form>
-            {auth.currentUser?.email}
+            
         </div>
     );
 }
