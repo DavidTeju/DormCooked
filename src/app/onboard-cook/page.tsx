@@ -1,21 +1,23 @@
 "use client";
 import {getAuth} from "firebase/auth";
-import {getDocs, query, setDoc, where} from "@firebase/firestore";
+import {addDoc} from "@firebase/firestore";
 import {redirect} from "next/navigation";
 import {collection} from "firebase/firestore";
-import { firebase_app } from "@/config/firebase/utils";
+import {db, firebase_app} from "@/config/firebase/utils";
 
 const auth = getAuth(firebase_app);
 
-// TODO
 function storeCookExistence(userID: string) {
-    // TODO
+    addDoc(collection(db, "Cook"), {
+        user: userID,
+        events: [],
+    });
 }
 
 export default function Home() {
-    if(auth.currentUser?.uid == undefined){
-        redirect("/");
+    if (auth.currentUser?.uid != undefined) {
+        storeCookExistence(auth.currentUser?.uid as string);
     }
-    storeCookExistence(auth.currentUser?.uid as string);
+
     redirect("/");
 }

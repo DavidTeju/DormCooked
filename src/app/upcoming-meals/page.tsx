@@ -15,7 +15,6 @@ import {query, where} from "@firebase/firestore";
 
 const auth = getAuth(firebase_app);
 
-// TODO
 async function getCookMeals(userID: string): Promise<Meal[]> {
     const withUserID = query(collection(db, "Cook"), where("userID", "==", userID));
 
